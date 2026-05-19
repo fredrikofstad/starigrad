@@ -10,7 +10,7 @@
         <input v-model="form.name" type="text" :placeholder="t('name')" required />
       </label>
 
-      <label class="field inline">
+      <label class="field">
         <span>{{ t('attendance') }}</span>
         <select v-model="form.attending">
           <option :value="true">{{ t('attending') }}</option>
@@ -98,7 +98,8 @@ function onSubmit() {
 
 <style scoped>
 .rsvp-card {
-  max-width: 520px;
+
+  width: min(1040px, 100%);
   margin: 24px auto;
   padding: 18px;
   border-radius: 8px;
@@ -107,7 +108,6 @@ function onSubmit() {
 }
 .rsvp-form { display:flex; flex-direction:column; gap:12px }
 .field { display:flex; flex-direction:column }
-.field.inline { flex-direction:row; align-items:center; gap:12px }
 .field span { font-weight:600; margin-bottom:6px }
 .field input[type="text"], .field select, .field input[type="date"], .field textarea {
   padding:8px 10px; border:1px solid #ddd; border-radius:4px; font-family:inherit

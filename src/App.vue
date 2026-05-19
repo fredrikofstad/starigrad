@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import RSVPForm from './components/RSVPForm.vue'
+import { computed, ref } from 'vue'
+import { RouterLink, RouterView } from 'vue-router'
 import locales from './locales/rsvp.json'
 
 const supported = Object.keys(locales)
@@ -11,26 +11,155 @@ const defaultLang = (typeof navigator !== 'undefined' && navigator.language)
 const lang = ref(supported.includes(defaultLang) ? defaultLang : 'en')
 
 const t = (key: string) => (locales as any)[lang.value]?.[key] || (locales as any)['en']?.[key] || key
+
+const navItems = computed(() => [
+	{ to: '/', label: t('home') },
+	{ to: '/program', label: t('program') },
+	{ to: '/information', label: t('information') },
+])
 </script>
 
 <template>
-	<header style="display:flex;justify-content:space-between;align-items:center;padding:16px 24px">
-		<h1>Invitation</h1>
-		<label style="font-size:0.95rem">
-			{{ t('language') }}
-			<select v-model="lang">
-				<option value="en">{{ t('english') }}</option>
-				<option value="no">{{ t('norwegian') }}</option>
-				<option value="ja">{{ t('japanese') }}</option>
-			</select>
-		</label>
-	</header>
+	<div class="app-shell">
+		<header class="topbar">
+			<div class="brand">
+				<p class="eyebrow">Wedding Invitation</p>
+				<h1>Starigrad</h1>
+			</div>
 
-	<main>
-		<RSVPForm :lang="lang" :locales="locales" />
-	</main>
+			<nav class="nav">
+				<RouterLink
+					v-for="item in navItems"
+					:key="item.to"
+					:to="item.to"
+					class="nav-link"
+					active-class="is-active"
+				>
+					{{ item.label }}
+				</RouterLink>
+			</nav>
+
+			<label class="language-picker">
+				<span>{{ t('language') }}</span>
+				<select v-model="lang">
+					<option value="en">{{ t('english') }}</option>
+					<option value="no">{{ t('norwegian') }}</option>
+					<option value="ja">{{ t('japanese') }}</option>
+				</select>
+			</label>
+		</header>
+
+		<main class="page-shell">
+			<RouterView v-slot="{ Component }">
+				<component :is="Component" :lang="lang" :locales="locales" />
+			</RouterView>
+		</main>
+	</div>
 </template>
 
 <style scoped>
-main { padding:24px; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial }
+.app-shell {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+.topbar {
+	display: grid;
+	grid-template-columns: 1fr auto auto;
+	gap: 1rem;
+	align-items: center;
+	padding: 1.25rem 1.5rem;
+	position: sticky;
+	top: 0;
+	z-index: 10;
+	backdrop-filter: blur(14px);
+	background: rgba(255, 250, 247, 0.78);
+	border-bottom: 1px solid rgba(194, 144, 126, 0.18);
+}
+
+.brand {
+	text-align: left;
+}
+
+.eyebrow {
+	margin: 0 0 0.25rem;
+	font-size: 0.76rem;
+	letter-spacing: 0.24em;
+	text-transform: uppercase;
+	color: var(--muted);
+}
+
+.brand h1 {
+	margin: 0;
+	font-size: 1.75rem;
+	line-height: 1;
+}
+
+.nav {
+	display: flex;
+	gap: 0.6rem;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.nav-link {
+	padding: 0.65rem 1rem;
+	border-radius: 999px;
+	text-decoration: none;
+	color: var(--muted-strong);
+	background: rgba(255, 255, 255, 0.7);
+	border: 1px solid rgba(194, 144, 126, 0.15);
+	transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.nav-link:hover {
+	transform: translateY(-1px);
+	box-shadow: 0 12px 24px rgba(135, 93, 77, 0.12);
+}
+
+.nav-link.is-active {
+	background: linear-gradient(135deg, rgba(179, 95, 95, 0.14), rgba(233, 201, 172, 0.3));
+	color: var(--ink);
+	border-color: rgba(179, 95, 95, 0.24);
+}
+
+.language-picker {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.55rem;
+	padding: 0.4rem 0.65rem;
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.7);
+	border: 1px solid rgba(194, 144, 126, 0.15);
+	color: var(--muted-strong);
+}
+
+.language-picker span {
+	font-size: 0.85rem;
+}
+
+.language-picker select {
+	border: 0;
+	background: transparent;
+	color: var(--ink);
+	font: inherit;
+	outline: none;
+}
+
+.page-shell {
+	flex: 1;
+	padding: 1.5rem;
+}
+
+@media (max-width: 900px) {
+	.topbar {
+		grid-template-columns: 1fr;
+		justify-items: start;
+	}
+
+	.nav {
+		justify-content: flex-start;
+	}
+}
 </style>
