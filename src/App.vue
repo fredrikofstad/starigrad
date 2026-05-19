@@ -1,61 +1,36 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { ref } from 'vue'
+import RSVPForm from './components/RSVPForm.vue'
+import locales from './locales/rsvp.json'
+
+const supported = Object.keys(locales)
+const defaultLang = (typeof navigator !== 'undefined' && navigator.language)
+	? navigator.language.split('-')[0]
+	: 'en'
+
+const lang = ref(supported.includes(defaultLang) ? defaultLang : 'en')
+
+const t = (key: string) => (locales as any)[lang.value]?.[key] || (locales as any)['en']?.[key] || key
 </script>
 
 <template>
-	<div class="app-shell">
-		<header class="topbar">
-			<h1>Starigrad</h1>
-			<nav>
-				<RouterLink to="/">Home</RouterLink>
-				<RouterLink to="/about">About</RouterLink>
-			</nav>
-		</header>
+	<header style="display:flex;justify-content:space-between;align-items:center;padding:16px 24px">
+		<h1>Invitation</h1>
+		<label style="font-size:0.95rem">
+			{{ t('language') }}
+			<select v-model="lang">
+				<option value="en">{{ t('english') }}</option>
+				<option value="no">{{ t('norwegian') }}</option>
+				<option value="ja">{{ t('japanese') }}</option>
+			</select>
+		</label>
+	</header>
 
-		<main>
-			<RouterView />
-		</main>
-	</div>
+	<main>
+		<RSVPForm :lang="lang" :locales="locales" />
+	</main>
 </template>
 
 <style scoped>
-.app-shell {
-	width: 100%;
-}
-
-.topbar {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	gap: 1rem;
-	padding: 1rem 1.5rem;
-	border-bottom: 1px solid var(--border);
-}
-
-h1 {
-	margin: 0;
-	font-size: 1.5rem;
-}
-
-nav {
-	display: flex;
-	gap: 0.8rem;
-}
-
-a {
-	text-decoration: none;
-	color: var(--text-h);
-	padding: 0.25rem 0.5rem;
-	border-radius: 4px;
-}
-
-a.router-link-active {
-	background: var(--accent-bg);
-	color: var(--accent);
-}
-
-main {
-	padding: 1.5rem;
-	text-align: left;
-}
+main { padding:24px; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial }
 </style>

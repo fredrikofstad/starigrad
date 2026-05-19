@@ -1,0 +1,53 @@
+{
+  "en": {
+    "title": "Please RSVP for our wedding",
+    "name": "Your full name",
+    "attendance": "Will you attend?",
+    "attending": "Yes — I will attend",
+    "not_attending": "Sorry — I can't make it",
+    "planned_arrival": "Arrival date (optional)",
+    "planned_departure": "Departure date (optional)",
+    "send_rsvp": "Submit RSVP",
+    "success_message": "Thank you — we've received your RSVP.",
+    "allergy": "Allergies or dietary needs",
+    "notes": "Additional notes (e.g. +1 name)",
+    "language": "Language",
+    "english": "English",
+    "norwegian": "Norsk",
+    "japanese": "日本語"
+  },
+  "no": {
+    "title": "Meld deg på bryllupet vårt",
+    "name": "Fullt navn",
+    "attendance": "Kommer du?",
+    "attending": "Ja — jeg kommer",
+    "not_attending": "Beklager — jeg kan ikke komme",
+    "planned_arrival": "Ankomstdato (valgfritt)",
+    "planned_departure": "Avreisedato (valgfritt)",
+    "send_rsvp": "Send påmelding",
+    "success_message": "Takk — vi har mottatt din påmelding.",
+    "allergy": "Allergier eller matbehov",
+    "notes": "Tilleggsinformasjon (f.eks. navn på følge)",
+    "language": "Språk",
+    "english": "English",
+    "norwegian": "Norsk",
+    "japanese": "日本語"
+  },
+  "ja": {
+    "title": "結婚式への出欠確認",
+    "name": "フルネーム",
+    "attendance": "出席されますか？",
+    "attending": "出席します",
+    "not_attending": "欠席します",
+    "planned_arrival": "到着日（任意）",
+    "planned_departure": "出発日（任意）",
+    "send_rsvp": "送信する",
+    "success_message": "ありがとうございます — RSVPを受け取りました。",
+    "allergy": "アレルギー・食事の制限",
+    "notes": "その他のメモ（例：同伴者の名前）",
+    "language": "言語",
+    "english": "English",
+    "norwegian": "Norsk",
+    "japanese": "日本語"
+  }
+}
