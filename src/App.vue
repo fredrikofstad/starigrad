@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView, useRoute } from 'vue-router'
 import locales from './locales/rsvp.json'
 
 const supported = Object.keys(locales)
@@ -9,13 +9,19 @@ const defaultLang = (typeof navigator !== 'undefined' && navigator.language)
 	: 'en'
 
 const lang = ref(supported.includes(defaultLang) ? defaultLang : 'en')
+const route = useRoute()
 
 const t = (key: string) => (locales as any)[lang.value]?.[key] || (locales as any)['en']?.[key] || key
 
+const inviteBase = computed(() => {
+	const raw = route.params.inviteCode
+	return typeof raw === 'string' && /^[A-Za-z0-9]{4}$/.test(raw) ? `/${raw}` : ''
+})
+
 const navItems = computed(() => [
-	{ to: '/', label: t('home') },
-	{ to: '/program', label: t('program') },
-	{ to: '/information', label: t('information') },
+	{ to: inviteBase.value || '/', label: t('home') },
+	{ to: inviteBase.value ? `${inviteBase.value}/program` : '/program', label: t('program') },
+	{ to: inviteBase.value ? `${inviteBase.value}/information` : '/information', label: t('information') },
 ])
 </script>
 

@@ -12,6 +12,21 @@ const router = createRouter({
       component: HomeView,
     },
     {
+      path: '/:inviteCode([A-Za-z0-9]{4})',
+      name: 'invite-code',
+      component: HomeView,
+    },
+    {
+      path: '/:inviteCode([A-Za-z0-9]{4})/program',
+      name: 'invite-program',
+      component: ProgramView,
+    },
+    {
+      path: '/:inviteCode([A-Za-z0-9]{4})/information',
+      name: 'invite-information',
+      component: InformationView,
+    },
+    {
       path: '/program',
       name: 'program',
       component: ProgramView,

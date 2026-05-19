@@ -3,7 +3,6 @@
     <article class="page-card">
       <p class="eyebrow">{{ t('information_eyebrow') }}</p>
       <h2>{{ t('information_title') }}</h2>
-      <p class="intro">{{ t('information_intro') }}</p>
 
       <div class="info-grid key-grid">
         <div class="detail-card">
@@ -35,6 +34,7 @@
           :api-key="mapsApiKey"
           :markers="gettingThereMarkers"
           :missing-key-message="t('information_map_missing_key')"
+          :blocked-by-client-message="t('information_map_blocked_by_client')"
           :geocode-failed-message="t('information_map_geocode_failed')"
         />
 
@@ -111,6 +111,7 @@
           :api-key="mapsApiKey"
           :markers="mapMarkers"
           :missing-key-message="t('information_map_missing_key')"
+          :blocked-by-client-message="t('information_map_blocked_by_client')"
           :geocode-failed-message="t('information_map_geocode_failed')"
         />
 
