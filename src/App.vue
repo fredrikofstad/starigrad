@@ -33,26 +33,28 @@ const navItems = computed(() => [
 				<h1>Starigrad</h1>
 			</div>
 
-			<nav class="nav">
-				<RouterLink
-					v-for="item in navItems"
-					:key="item.to"
-					:to="item.to"
-					class="nav-link"
-					active-class="is-active"
-				>
-					{{ item.label }}
-				</RouterLink>
-			</nav>
+			<div class="top-controls">
+				<nav class="nav">
+					<RouterLink
+						v-for="item in navItems"
+						:key="item.to"
+						:to="item.to"
+						class="nav-link"
+						active-class="is-active"
+					>
+						{{ item.label }}
+					</RouterLink>
+				</nav>
 
-			<label class="language-picker">
-				<span>{{ t('language') }}</span>
-				<select v-model="lang">
-					<option value="en">{{ t('english') }}</option>
-					<option value="no">{{ t('norwegian') }}</option>
-					<option value="ja">{{ t('japanese') }}</option>
-				</select>
-			</label>
+				<label class="language-picker">
+					<span>{{ t('language') }}</span>
+					<select v-model="lang">
+						<option value="en">{{ t('english') }}</option>
+						<option value="no">{{ t('norwegian') }}</option>
+						<option value="ja">{{ t('japanese') }}</option>
+					</select>
+				</label>
+			</div>
 		</header>
 
 		<main class="page-shell">
@@ -153,6 +155,22 @@ const navItems = computed(() => [
 	outline: none;
 }
 
+.top-controls {
+	display: flex;
+	align-items: center;
+	gap: 0.6rem;
+	flex-wrap: wrap;
+	width: 100%;
+}
+
+.nav {
+	flex: 1 1 auto;
+}
+
+.language-picker {
+	flex: 0 0 auto;
+}
+
 .page-shell {
 	flex: 1;
 	padding: 1.5rem;
@@ -161,11 +179,18 @@ const navItems = computed(() => [
 @media (max-width: 900px) {
 	.topbar {
 		grid-template-columns: 1fr;
-		justify-items: start;
+		gap: 0.5rem;
 	}
 
-	.nav {
-		justify-content: flex-start;
+	.brand {
+		grid-column: 1 / -1;
+	}
+
+	.top-controls {
+		grid-column: 1 / -1;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 	}
 }
 </style>
