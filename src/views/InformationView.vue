@@ -65,37 +65,37 @@
             <tbody>
               <tr>
                 <td>Split - Stari Grad</td>
-                <td>05:30</td>
+                <td>01:30</td>
                 <td>2h</td>
               </tr>
               <tr>
                 <td>Split - Stari Grad</td>
-                <td>07:45</td>
+                <td>05:00</td>
                 <td>2h</td>
               </tr>
               <tr>
                 <td>Split - Stari Grad</td>
-                <td>11:30</td>
+                <td>08:30</td>
                 <td>2h</td>
               </tr>
               <tr>
                 <td>Split - Stari Grad</td>
-                <td>14:00</td>
+                <td>11:00</td>
                 <td>2h</td>
               </tr>
               <tr>
                 <td>Split - Stari Grad</td>
-                <td>17:30</td>
+                <td>14:30</td>
                 <td>2h</td>
               </tr>
               <tr>
                 <td>Split - Stari Grad</td>
-                <td>20:00</td>
+                <td>17:00</td>
                 <td>2h</td>
               </tr>
               <tr>
                 <td>Split - Stari Grad</td>
-                <td>23:00</td>
+                <td>20:30</td>
                 <td>2h</td>
               </tr>
             </tbody>
