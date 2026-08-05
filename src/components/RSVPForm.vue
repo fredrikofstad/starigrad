@@ -118,8 +118,43 @@ const generatedLink = computed(() => {
 
 function normalizeDate(value?: string) {
   if (!value) return ''
+
+  const directDateMatch = value.match(/^(\d{4}-\d{2}-\d{2})$/)
+  if (directDateMatch) {
+    return directDateMatch[1]
+  }
+
+  const isoTimestampMatch = value.match(
+    /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.\d+)?Z$/,
+  )
+  if (isoTimestampMatch) {
+    const year = Number(isoTimestampMatch[1])
+    const month = Number(isoTimestampMatch[2]) - 1
+    const day = Number(isoTimestampMatch[3])
+    const hour = Number(isoTimestampMatch[4])
+    const minute = Number(isoTimestampMatch[5])
+    const second = Number(isoTimestampMatch[6])
+
+    const date = new Date(Date.UTC(year, month, day))
+    if (hour >= 22 && minute === 0 && second === 0) {
+      date.setUTCDate(date.getUTCDate() + 1)
+    }
+
+    const normalizedYear = date.getUTCFullYear()
+    const normalizedMonth = String(date.getUTCMonth() + 1).padStart(2, '0')
+    const normalizedDay = String(date.getUTCDate()).padStart(2, '0')
+    return `${normalizedYear}-${normalizedMonth}-${normalizedDay}`
+  }
+
   const parsed = new Date(value)
-  return Number.isNaN(parsed.getTime()) ? value : parsed.toISOString().slice(0, 10)
+  if (Number.isNaN(parsed.getTime())) {
+    return value
+  }
+
+  const year = parsed.getUTCFullYear()
+  const month = String(parsed.getUTCMonth() + 1).padStart(2, '0')
+  const day = String(parsed.getUTCDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
 }
 
 function applyPrefill(prefill?: PrefillData | null) {
@@ -134,7 +169,7 @@ function applyPrefill(prefill?: PrefillData | null) {
 
 watch(
   () => props.prefill,
-  (prefill) => {
+  (prefill: PrefillData | null | undefined) => {
     applyPrefill(prefill)
   },
   { immediate: true, deep: true },
